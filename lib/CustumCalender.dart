@@ -1,3 +1,4 @@
+import 'package:calender/Cell.dart';
 import 'package:flutter/material.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
@@ -90,23 +91,22 @@ class _CustomCalendarState extends State<CustomCalendar> {
     tableRows.add(
       TableRow(
         children: [
-          buildCalendarCell('شنبه'),
-          buildCalendarCell('یکشنبه'),
-          buildCalendarCell('دوشنبه'),
-          buildCalendarCell('سه شنبه'),
-          buildCalendarCell('چهارشنبه'),
-          buildCalendarCell('پنجشنبه'),
-          buildCalendarCell('جمعه'),
+          buildCell(text: 'شنبه'),
+          buildCell(text: 'یکشنبه'),
+          buildCell(text: 'دوشنبه'),
+          buildCell(text: 'سه شنبه'),
+          buildCell(text: 'چهارشنبه'),
+          buildCell(text: 'پنجشنبه'),
+          buildCell(text: 'جمعه'),
         ],
       ),
     );
 
-    // Calculate the start and end dates for the current month
     DateTime firstDayOfMonth = DateTime(currentDate.year, currentDate.month, 1);
     DateTime lastDayOfMonth =
         DateTime(currentDate.year, currentDate.month + 1, 0);
 
-    // Calculate the number of rows needed to display the month
+
     int numRows = ((firstDayOfMonth.weekday + lastDayOfMonth.day) / 7).ceil();
 
     // Loop through the rows
@@ -117,11 +117,11 @@ class _CustomCalendarState extends State<CustomCalendar> {
       for (int day = 1; day <= 7; day++) {
         int dayOfMonth = (row * 7) + day - firstDayOfMonth.weekday;
 
-        // Check if the current day is within the month range
+        
         if (dayOfMonth >= 1 && dayOfMonth <= lastDayOfMonth.day) {
-          cells.add(buildCalendarCell(dayOfMonth.toString()));
+          cells.add(buildCell(text: dayOfMonth.toString()));
         } else {
-          cells.add(Container()); // Empty cell for days outside the month
+          cells.add(Container());
         }
       }
       tableRows.add(
@@ -132,14 +132,5 @@ class _CustomCalendarState extends State<CustomCalendar> {
     }
     return tableRows;
   }
-  Widget buildCalendarCell(String text) {
-    return Container(
-      height: 40,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-      ),
-      child: Text(text),
-    );
-  }
 }
+
